@@ -1,0 +1,61 @@
+<li class="posts__item">
+  <img class="user-logo" src="../../assets/img/Barak.jpg" alt="User Logo" />
+  <div class="content-wrap">
+    <div class="item__title">
+      <div class="item__title-wrap">
+        <h3 class="item__name">Barack Obama</h3>
+        <p class="item__username">@BarackObama</p>
+        <span class="item__time">{{
+          post.date.toDate() | date: "MMM d, yyy"
+        }}</span>
+      </div>
+      <button
+        (click)="editPost(post)"
+        type="button"
+        class="item__btn item__edit"
+      >
+        Edit
+      </button>
+      <button
+        (click)="deletePost(post)"
+        type="button"
+        class="item__btn item__delete"
+      >
+        Delete
+      </button>
+    </div>
+    <p class="item__desc">{{ post.description }}</p>
+    <div *ngIf="editState && postToEdit.id == post.id">
+      <form (ngSubmit)="updatePost(post)">
+        <input
+          [(ngModel)]="post.description"
+          class="message__input"
+          type="text"
+          name="post"
+        />
+        <button type="submit" class="admin-main__post button__post">
+          Update
+        </button>
+      </form>
+    </div>
+    <div class="item__actions-wrap">
+      <ul class="item-actions__list">
+        <li class="item-actions__item">
+          <i class="icon icon-chat icon-16"></i>
+          <span class="count">457</span>
+        </li>
+        <li class="item-actions__item">
+          <i class="icon icon-share icon-16"></i>
+          <span class="count">4.7K</span>
+        </li>
+        <li class="item-actions__item">
+          <i class="icon icon-heart icon-16"></i>
+          <span class="count">457</span>
+        </li>
+        <li class="item-actions__item">
+          <i class="icon icon-upload icon-16"></i>
+        </li>
+      </ul>
+    </div>
+  </div>
+</li>

@@ -1,0 +1,29 @@
+<div class="container">
+  <main class="main">
+    <div class="logo"></div>
+    <h2 class="main__title">Thank You for Registering!</h2>
+    <div class="main__text-wrap" *ngIf="authService.userData as user">
+      <p class="main__text">
+        We have sent a confirmation email to <strong>{{ user.email }}</strong
+        >.
+      </p>
+      <p class="main__text">
+        Please check your email and click on the link to verfiy your email
+        address.
+      </p>
+    </div>
+    <div class="alert alert__error"></div>
+    <form class="main__form" action="" method="POST">
+      <button
+        class="button button__login"
+        type="button"
+        (click)="authService.SendVerificationMail()"
+      >
+        Resend Verification Email
+      </button>
+    </form>
+    <p class="hint redirect">
+      Go Back To?<span routerLink="/log-in">Log In</span>
+    </p>
+  </main>
+</div>

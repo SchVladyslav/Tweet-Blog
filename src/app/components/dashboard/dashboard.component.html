@@ -1,0 +1,64 @@
+<div class="admin">
+  <app-nav></app-nav>
+  <main class="admin-main">
+    <div class="admin-main__title-wrap">
+      <h1 class="admin-main__title">Home</h1>
+      <button
+        class="admin-main__logout"
+        type="button"
+        (click)="authService.SignOut()"
+      >
+        Log out
+      </button>
+    </div>
+    <section class="message">
+      <img class="user-logo" src="../../assets/img/Noize.jpg" alt="Photo" />
+      <div class="message__actions-wrap">
+        <form (ngSubmit)="onSubmit()" class="message__form" method="" action="">
+          <input
+            [(ngModel)]="post.description"
+            class="message__input"
+            type="text"
+            name="post"
+            placeholder="What's New?"
+          />
+          <div class="actions__wrap">
+            <ul class="actions__list">
+              <li class="actions__item">
+                <i class="icon icon-image"></i>
+              </li>
+              <li class="actions__item icon-16">
+                <i class="icon icon-gif"></i>
+              </li>
+              <li class="actions__item">
+                <i class="icon icon-badge-13"></i>
+              </li>
+              <li class="actions__item">
+                <i class="icon icon-ic_tag_faces_24px"></i>
+              </li>
+            </ul>
+            <button
+              type="submit"
+              (keyup.enter)="onSubmit()"
+              class="admin-main__post button__post"
+            >
+              Post
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="posts">
+      <ul class="posts__list" *ngIf="posts?.length > 0; else noPosts">
+        <app-post *ngFor="let post of posts" [post]="post"></app-post>
+      </ul>
+    </section>
+  </main>
+  <app-suggestions></app-suggestions>
+</div>
+
+<ng-template #noPosts>
+  <hr />
+  <h5>There are no posts to list!</h5>
+</ng-template>

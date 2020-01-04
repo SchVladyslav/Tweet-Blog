@@ -1,0 +1,29 @@
+/* Nav */
+.aside-nav {
+  border-right: 1px solid #ccc;
+}
+
+.nav {
+  padding-left: 40px;
+  font-size: 20px;
+}
+
+.nav__list {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav__item {
+  margin-bottom: 30px;
+}
+
+.nav__item:hover {
+  color: #26a5f3;
+  cursor: pointer;
+}
+
+.nav__btn-post {
+  width: 75%;
+}
+
+/* /Nav */
