@@ -1,0 +1,16 @@
+.main__text-wrap {
+  text-align: center;
+}
+
+.main__text {
+  max-width: 300px;
+}
+
+.main__text + .main__text {
+  margin-top: 20px;
+}
+
+.redirect:hover {
+  color: #a64bf4;
+  cursor: pointer;
+}

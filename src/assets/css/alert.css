@@ -1,0 +1,11 @@
+.item__validation {
+  margin-top: 10px;
+}
+
+.ng-touched.ng-invalid {
+  border-bottom-color: red;
+}
+
+.ng-touched.ng-invalid .item__validation {
+  color: red;
+}
