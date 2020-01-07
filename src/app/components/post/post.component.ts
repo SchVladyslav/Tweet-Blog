@@ -1,5 +1,7 @@
 import { Component, Input } from "@angular/core";
+
 import { PostInterface } from "../../interfaces/post.interface";
+
 import { PostsService } from "../../services/posts.service";
 
 @Component({
@@ -27,7 +29,6 @@ export class PostComponent {
   deletePost(post: PostInterface) {
     this.clearState();
     this.postsService.deletePost(post);
-    //event.target.id;
   }
 
   clearState() {

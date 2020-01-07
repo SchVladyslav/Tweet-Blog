@@ -130,3 +130,7 @@
 .item-actions__item:nth-child(3):hover .icon {
   background-color: #f3e3eb;
 }
+
+.item__btn:hover {
+  color: #1a91da;
+}

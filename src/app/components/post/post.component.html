@@ -1,10 +1,10 @@
 <li class="posts__item">
-  <img class="user-logo" src="../../assets/img/Barak.jpg" alt="User Logo" />
+  <img class="user-logo" src="{{ post.authorImage }}" alt="User Logo" />
   <div class="content-wrap">
     <div class="item__title">
       <div class="item__title-wrap">
-        <h3 class="item__name">Barack Obama</h3>
-        <p class="item__username">@BarackObama</p>
+        <h3 class="item__name">{{ post.author }}</h3>
+        <p class="item__username">@{{ post.author }}</p>
         <span class="item__time">{{
           post.date.toDate() | date: "MMM d, yyy"
         }}</span>
@@ -45,15 +45,15 @@
       <ul class="item-actions__list">
         <li class="item-actions__item">
           <i class="icon icon-chat icon-16"></i>
-          <span class="count">457</span>
+          <span class="count">{{ post.comments }}</span>
         </li>
         <li class="item-actions__item">
           <i class="icon icon-share icon-16"></i>
-          <span class="count">4.7K</span>
+          <span class="count">{{ post.share }}</span>
         </li>
         <li class="item-actions__item">
           <i class="icon icon-heart icon-16"></i>
-          <span class="count">457</span>
+          <span class="count">{{ post.likes }}</span>
         </li>
         <li class="item-actions__item">
           <i class="icon icon-upload icon-16"></i>

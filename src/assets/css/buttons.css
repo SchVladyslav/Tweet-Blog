@@ -78,3 +78,8 @@
 .button-icon {
   color: #26a5f3;
 }
+
+.item__btn:hover,
+.admin-main__logout:hover {
+  color: #1a91da;
+}

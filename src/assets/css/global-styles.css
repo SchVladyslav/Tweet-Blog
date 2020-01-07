@@ -38,8 +38,25 @@ body:before {
 
 .aside-nav,
 .suggestions {
+  position: fixed;
   width: 20vw;
+
   min-height: 100vh;
+}
+
+.admin-main__title-wrap {
+  position: fixed;
+  width: 600px;
+
+  z-index: 1;
+}
+
+.aside-nav {
+  left: 10%;
+}
+
+.suggestions {
+  right: 10%;
 }
 
 .button__post:disabled.button__post:hover {
@@ -70,7 +87,7 @@ body:before {
 .message {
   display: flex;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-top: 50px;
 }
 
 .user-logo {

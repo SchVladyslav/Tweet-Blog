@@ -3,7 +3,7 @@ import { PostInterface } from '../../interfaces/post.interface';
 
 import { PostsService } from '../../services/posts.service';
 import { ModalService } from '../../services/modal.service';
-//import { ImageService } from '../../services/image.service';
+import { AuthService } from '../../services/auth.service';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) { }
@@ -22,10 +22,12 @@ export class DashboardComponent implements OnInit {
 
   post: PostInterface = {
     date: new Date(),
-    description: ''
+    description: '',
+    author: '',
+    authorImage: '',
   };
-  //private imageService: ImageService,
-  constructor(private postsService: PostsService, private modalService: ModalService) { }
+
+  constructor(private authService: AuthService, private postsService: PostsService, private modalService: ModalService) { }
 
   ngOnInit() {
     this.postsService.getPosts().subscribe(posts => {
@@ -39,36 +41,36 @@ export class DashboardComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.selectedFile ? this.post.image = this.selectedFile.src : this.post;
-    console.log(this.post);
+    this.formData();
+
     this.postsService.addPost(this.post);
     this.post.description = '';
+    this.selectedFile = null;
   }
 
   closeModal(id: string) {
     this.modalService.close(id);
   }
 
-  // openDialog(event) {
-  //   this.selectedFile = event.target.files[0];
-  // }
-
-  processFile(imageInput: any) {
-    const file: File = imageInput.files[0];
+  processFile(event) {
+    const file: File = event.target.files[0];
     const reader = new FileReader();
-
     reader.addEventListener('load', (event: any) => {
-
       this.selectedFile = new ImageSnippet(event.target.result, file);
-
-      //   this.imageService.uploadImage(this.selectedFile.file).subscribe(
-      //     (res) => {
-
-      //     },
-      //     (err) => {
-
-      //     })
     });
     reader.readAsDataURL(file);
+  }
+
+  formData() {
+    this.selectedFile ? this.post.image = this.selectedFile.src : this.post;
+    this.post.author = this.authService.userData.displayName;
+    this.post.authorImage = this.authService.userData.photoURL;
+    this.post.comments = this.randNumbers();
+    this.post.share = this.randNumbers();
+    this.post.likes = this.randNumbers();
+  }
+
+  randNumbers(): number {
+    return Math.floor((Math.random() * 1000) + 1);
   }
 }

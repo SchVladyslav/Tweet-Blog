@@ -12,7 +12,11 @@
       </button>
     </div>
     <section class="message">
-      <img class="user-logo" src="../../assets/img/Noize.jpg" alt="Photo" />
+      <img
+        class="user-logo"
+        src="{{ authService.userData.photoURL }}"
+        alt="Photo"
+      />
       <div class="message__actions-wrap">
         <form (ngSubmit)="onSubmit()" class="message__form" method="" action="">
           <textarea
@@ -30,11 +34,10 @@
             <ul class="actions__list">
               <li class="actions__item">
                 <input
-                  #imageInput
                   id="file-input"
                   type="file"
                   accept="image/*"
-                  (change)="processFile(imageInput)"
+                  (change)="processFile($event)"
                 />
                 <label for="file-input">
                   <i class="icon icon-image"></i>
@@ -87,20 +90,37 @@
     </button>
 
     <div class="message">
-      <img class="user-logo" src="../../assets/img/Noize.jpg" alt="Photo" />
+      <img
+        class="user-logo"
+        src="{{ authService.userData.photoURL }}"
+        alt="Photo"
+      />
       <div class="message__actions-wrap">
         <form (ngSubmit)="onSubmit()" class="message__form" method="" action="">
-          <input
+          <textarea
+            rows="1"
             [(ngModel)]="post.description"
             class="message__input"
             type="text"
             name="post"
             placeholder="What's New?"
-          />
+          ></textarea>
+          <div *ngIf="selectedFile" class="message__image">
+            <img src="{{ selectedFile.src }}" />
+          </div>
           <div class="actions__wrap">
             <ul class="actions__list">
               <li class="actions__item">
-                <i class="icon icon-image"></i>
+                <input
+                  #imageInput
+                  id="file-input"
+                  type="file"
+                  accept="image/*"
+                  (change)="processFile(imageInput)"
+                />
+                <label for="file-input">
+                  <i class="icon icon-image"></i>
+                </label>
               </li>
               <li class="actions__item icon-16">
                 <i class="icon icon-gif"></i>
