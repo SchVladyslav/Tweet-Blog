@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 // App routing modules
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +24,7 @@ import { AngularFireAuthModule } from "@angular/fire/auth";
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from "../environments/environment";
 import { VerifyEmailComponent } from './components/verify-email/verify-email.component';
+import { ModalModule } from './_modal';
 
 @NgModule({
   declarations: [
@@ -34,17 +35,20 @@ import { VerifyEmailComponent } from './components/verify-email/verify-email.com
     SignUpComponent,
     LogInComponent,
     DashboardComponent,
-    VerifyEmailComponent
+    VerifyEmailComponent,
+
   ],
   imports: [
     BrowserModule, // saying Angular to work in Browser
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    ModalModule,
   ],
   providers: [PostsService, AuthService], //services, interseptions. By doing this our authentication service will be available throughout the application
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

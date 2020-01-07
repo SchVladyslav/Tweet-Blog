@@ -38,6 +38,9 @@
         </button>
       </form>
     </div>
+    <div *ngIf="post.image" class="message__image">
+      <img src="{{ post.image }}" />
+    </div>
     <div class="item__actions-wrap">
       <ul class="item-actions__list">
         <li class="item-actions__item">

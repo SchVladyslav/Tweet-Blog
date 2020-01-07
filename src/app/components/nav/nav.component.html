@@ -1,4 +1,7 @@
 <aside class="aside-nav">
+  <div class="logo">
+    <i class="icon icon-mountain icon-32"></i>
+  </div>
   <nav class="nav">
     <ul class="nav__list">
       <li class="nav__item">
@@ -44,6 +47,12 @@
         </a>
       </li>
     </ul>
-    <button type="button" class="nav__btn-post button__post">Post</button>
+    <button
+      (click)="openModal('post-modal')"
+      type="button"
+      class="nav__btn-post button__post"
+    >
+      Post
+    </button>
   </nav>
 </aside>

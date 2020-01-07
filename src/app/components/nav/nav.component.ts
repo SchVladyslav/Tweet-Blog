@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { ModalService } from '../../_modal';
 
 @Component({
   selector: "app-nav",
@@ -6,7 +7,11 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./nav.component.css"]
 })
 export class NavComponent implements OnInit {
-  constructor() {}
+  constructor(private modalService: ModalService) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
+
+  openModal(id: string) {
+    this.modalService.open(id);
+  }
 }

@@ -1,24 +1,42 @@
+.logo {
+  height: 40px;
+  width: 40px;
+}
+
+.icon {
+  margin-top: 5px;
+}
+
 /* Nav */
 .aside-nav {
+  padding-top: 10px;
+
   border-right: 1px solid #ccc;
 }
 
 .nav {
-  padding-left: 40px;
   font-size: 20px;
 }
 
 .nav__list {
   display: flex;
   flex-direction: column;
+
+  margin: 20px 0;
+  max-width: 200px;
 }
 
 .nav__item {
-  margin-bottom: 30px;
+  padding: 10px;
+  border-radius: 20px;
+
+  transition: all 0.2s;
 }
 
 .nav__item:hover {
   color: #26a5f3;
+
+  background-color: #e8f5fe;
   cursor: pointer;
 }
 

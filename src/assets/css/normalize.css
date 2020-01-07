@@ -1,0 +1,30 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+li {
+  list-style: none;
+}
+
+button {
+  background-color: transparent;
+  border: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+input {
+  border: transparent;
+  background: transparent;
+  cursor: pointer;
+  outline: transparent;
+}
+
+textarea {
+  border: none;
+  resize: none;
+  outline: none;
+  overflow: hidden;
+}

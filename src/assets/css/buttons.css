@@ -1,0 +1,80 @@
+/* Dashboard Component */
+
+.button__post {
+  width: 100px;
+  padding: 15px 20px;
+
+  font-weight: 600;
+  border-radius: 25px;
+  color: #fff;
+  background-color: #26a5f3;
+
+  outline: transparent;
+  border: transparent;
+}
+
+.button__post:hover {
+  background-color: #1a91da;
+  cursor: pointer;
+}
+
+.button__post:disabled {
+  opacity: 0.7;
+}
+
+.button__post:disabled.button__post:hover {
+  background-color: #26a5f3;
+}
+
+/* /Dashboard Component */
+
+.button {
+  width: 100%;
+  height: 50px;
+  margin: 20px 0;
+
+  color: #fff;
+  font-size: 22px;
+  font-weight: normal;
+  line-height: 1.2;
+
+  background-color: #a64bf4;
+  background: linear-gradient(to right, #00dbde, #fc00ff, #00dbde, #fc00ff);
+  background-size: 300% 100%;
+
+  transition: all 0.4s;
+  border-radius: 25px;
+
+  text-transform: capitalize;
+}
+
+.button:hover {
+  background-position: 50% 0;
+}
+
+.button:disabled {
+  opacity: 0.4;
+}
+
+.button:disabled.button:hover {
+  background-position: 0 0;
+}
+
+.button__login-social {
+  height: 50px;
+  width: 50px;
+
+  font-weight: bold;
+  border-radius: 50%;
+
+  background: #d54433;
+}
+
+.button__login-social:hover {
+  color: #fff;
+  background: #961a1a;
+}
+
+.button-icon {
+  color: #26a5f3;
+}

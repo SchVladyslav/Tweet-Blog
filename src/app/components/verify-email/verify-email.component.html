@@ -1,6 +1,8 @@
 <div class="container">
   <main class="main">
-    <div class="logo"></div>
+    <div class="logo">
+      <i class="icon icon-mountain"></i>
+    </div>
     <h2 class="main__title">Thank You for Registering!</h2>
     <div class="main__text-wrap" *ngIf="authService.userData as user">
       <p class="main__text">
@@ -12,7 +14,6 @@
         address.
       </p>
     </div>
-    <div class="alert alert__error"></div>
     <form class="main__form" action="" method="POST">
       <button
         class="button button__login"
@@ -22,8 +23,9 @@
         Resend Verification Email
       </button>
     </form>
-    <p class="hint redirect">
-      Go Back To?<span routerLink="/log-in">Log In</span>
+    <p class="">
+      Go Back To?
+      <span class=" redirect" routerLink="/log-in"> Log In</span>
     </p>
   </main>
 </div>

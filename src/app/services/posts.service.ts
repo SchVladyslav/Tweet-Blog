@@ -12,7 +12,7 @@ export class PostsService {
   posts: Observable<PostInterface[]>;
 
   constructor(public afs: AngularFirestore) {
-    this.postsCollection = this.afs.collection('posts'); //ref => ref.orderBy('title', 'asc');
+    this.postsCollection = this.afs.collection('posts', ref => ref.orderBy('date', 'desc'));
     //this.posts = this.afs.collection('posts').valueChanges(); 
   }
 

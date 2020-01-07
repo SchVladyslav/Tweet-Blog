@@ -4,45 +4,85 @@
       <i class="icon icon-mountain"></i>
     </div>
     <h1 class="main__title">Log In</h1>
-    <div class="alert alert__error"></div>
-    <form class="main__form" action="" method="POST">
-      <div class="main__icon-wrap">
-        <i class="icon icon-lock main__icon"></i>
-        <input
-          #userName
-          class="input input__email"
-          type="email"
-          name="email"
-          placeholder="E-mail"
-          required
-        />
-      </div>
-      <div class="main__icon-wrap">
-        <i class="icon icon-user main__icon"></i>
-        <input
-          #userPassword
-          class="input input__password"
-          type="password"
-          name="password"
-          placeholder="Password"
-          required2
-        />
-      </div>
+
+    <form class="main__form" action="" [formGroup]="form" (ngSubmit)="submit()">
+      <ul class="form__list">
+        <li class="form__item">
+          <input
+            #userEmail
+            class="input input__email"
+            type="email"
+            placeholder="E-mail"
+            formControlName="email"
+            autocomplete="current-email"
+          />
+          <i class="icon icon-lock input__icon"></i>
+          <div
+            class="item__validation"
+            *ngIf="form.get('email').invalid && form.get('email').touched"
+          >
+            <p *ngIf="form.get('email').errors.required">
+              Email isn't be empty!
+            </p>
+            <p *ngIf="form.get('email').errors.pattern">Enter a valid email!</p>
+          </div>
+        </li>
+        <li class="form__item">
+          <input
+            #userPassword
+            class="input input__password"
+            type="password"
+            placeholder="Password"
+            formControlName="password"
+            autocomplete="current-password"
+          />
+          <i class="icon icon-user input__icon"></i>
+          <div
+            class="item__validation"
+            *ngIf="form.get('password').invalid && form.get('password').touched"
+          >
+            <p *ngIf="form.get('password').errors.required">
+              Password isn't be empty!
+            </p>
+            <p *ngIf="form.get('password').errors.minlength">
+              The length must be at least
+              {{ form.get("password").errors.minlength.requiredLength }}.
+              Current Length -
+              {{ form.get("password").errors.minlength.actualLength }}
+            </p>
+          </div>
+        </li>
+      </ul>
+      <p class="main__reset">
+        <a class="hint" (click)="authService.ForgotPassword(userEmail.value)">
+          Forgot password?
+        </a>
+      </p>
+
       <button
         class="button button__login"
-        type="button"
-        (click)="authService.SignIn(userName.value, userPassword.value)"
+        type="submit"
+        [disabled]="form.invalid"
       >
-        Login
-      </button>
-      <button
-        class="button button__login"
-        type="button"
-        (click)="authService.GoogleAuth()"
-      >
-        Login With Google
+        Log In
       </button>
     </form>
-    <p class="hint redirect" routerLink="/sign-up">Don't have an account?</p>
+    <div class="form__controls">
+      <p class="main__social-text">Or sign up using</p>
+
+      <ul class="buttons__list">
+        <li class="button__item">
+          <button
+            class="button button__login-social"
+            type="button"
+            (click)="authService.GoogleAuth()"
+          >
+            G+
+          </button>
+        </li>
+      </ul>
+
+      <p class="hint redirect" routerLink="/sign-up">Don't have an account?</p>
+    </div>
   </main>
 </div>
