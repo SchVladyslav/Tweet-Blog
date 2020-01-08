@@ -4,6 +4,7 @@ import { PostInterface } from '../../interfaces/post.interface';
 import { PostsService } from '../../services/posts.service';
 import { ModalService } from '../../services/modal.service';
 import { AuthService } from '../../services/auth.service';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 class ImageSnippet {
   constructor(public src: string, public file: File) { }
@@ -16,6 +17,7 @@ class ImageSnippet {
 })
 export class DashboardComponent implements OnInit {
 
+  form: FormGroup;
   selectedFile: ImageSnippet;
   description: string;
   posts: PostInterface[];
@@ -37,6 +39,10 @@ export class DashboardComponent implements OnInit {
           ...e.payload.doc.data()
         } as PostInterface;
       })
+    });
+
+    this.form = new FormGroup({
+      inputArea: new FormControl('', [Validators.required, Validators.minLength(1)]),
     });
   }
 
@@ -65,6 +71,10 @@ export class DashboardComponent implements OnInit {
     this.selectedFile ? this.post.image = this.selectedFile.src : this.post;
     this.post.author = this.authService.userData.displayName;
     this.post.authorImage = this.authService.userData.photoURL;
+    // console.log(this.authService.userData.displayName)
+    //this.authService.userData.displayName ? this.post.author = this.authService.userData.displayName : this.post.author = "Guest";
+    //this.authService.userData.photoURL ? this.post.authorImage = this.authService.userData.photoURL : this.post.authorImage = "../../../assets/img/avatar.jpg";
+
     this.post.comments = this.randNumbers();
     this.post.share = this.randNumbers();
     this.post.likes = this.randNumbers();

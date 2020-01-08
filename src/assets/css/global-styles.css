@@ -44,19 +44,20 @@ body:before {
   min-height: 100vh;
 }
 
+.aside-nav {
+  top: 0;
+  left: 8%;
+
+  z-index: 2;
+}
+
 .admin-main__title-wrap {
   position: fixed;
-  width: 600px;
+  top: 0;
+
+  width: 598px;
 
   z-index: 1;
-}
-
-.aside-nav {
-  left: 10%;
-}
-
-.suggestions {
-  right: 10%;
 }
 
 .button__post:disabled.button__post:hover {
@@ -68,7 +69,9 @@ body:before {
 }
 
 .admin-main {
-  max-width: 600px;
+  width: 600px;
+
+  border: 1px solid #ccc;
 }
 
 .admin-main__title {
@@ -88,6 +91,10 @@ body:before {
   display: flex;
   padding: 10px;
   margin-top: 50px;
+}
+
+.modal {
+  margin-top: 0;
 }
 
 .user-logo {

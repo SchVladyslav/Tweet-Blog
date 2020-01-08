@@ -1,16 +1,24 @@
 import { Injectable, NgZone } from '@angular/core';
-import { UserInterface } from "../interfaces/user.interface";
-import { auth } from 'firebase/app';
-import { AngularFireAuth } from "@angular/fire/auth";
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
+
+import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
+import { AngularFireAuth } from "@angular/fire/auth";
+import { auth } from 'firebase/app';
+
+import { UserInterface } from "../interfaces/user.interface";
+
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class AuthService {
+    private eventAuthError = new BehaviorSubject<string>("");
+    eventAuthError$ = this.eventAuthError.asObservable();
+
     userData: any; // Save logged in user data
+    authState: any = null;
 
     constructor(
         public afs: AngularFirestore,   // Inject Firestore service
@@ -20,37 +28,38 @@ export class AuthService {
     ) {
 
         this.afAuth.authState.subscribe(user => {
-            if (user) {
-                this.userData = user;
-                localStorage.setItem('user', JSON.stringify(this.userData));
-                JSON.parse(localStorage.getItem('user'));
-            } else {
-                localStorage.setItem('user', null);
-                JSON.parse(localStorage.getItem('user'));
-            }
+            this.authState = user;
         });
     }
 
-    // Sign in with email/password
     LogIn(email, password) {
         return this.afAuth.auth.signInWithEmailAndPassword(email, password)
             .then((result) => {
                 this.ngZone.run(() => {
                     this.router.navigate(['dashboard']);
                 });
-                this.SetUserData(result.user);
+                this.getUserById(result.user.uid).subscribe(user => {
+                    this.userData = user;
+                    this.userData.emailVerified = result.user.emailVerified;
+                    this.SetUserData(this.userData);
+                });
             }).catch((error) => {
-                window.alert(error.message)
+                this.eventAuthError.next(error);
             });
     }
 
-    SignUp(email, password) {
-        return this.afAuth.auth.createUserWithEmailAndPassword(email, password)
+    getUserById(id) {
+        return this.afs.collection('users').doc(id).valueChanges();
+    }
+
+    SignUp(user) {
+        return this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
             .then((result) => {
                 this.SendVerificationMail();
+                this.userData = user;
                 this.SetUserData(result.user);
             }).catch((error) => {
-                window.alert(error.message)
+                this.eventAuthError.next(error);
             });
     }
 
@@ -64,23 +73,22 @@ export class AuthService {
     ForgotPassword(passwordResetEmail) {
         return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
             .then(() => {
-                window.alert('Password reset email sent, check your inbox.');
+                this.eventAuthError.next('Password reset email sent, check your inbox.');
             }).catch((error) => {
-                window.alert(error)
+                this.eventAuthError.next(error);
             });
     }
 
     // Returns true when user is loged in and email is verified
     get isLoggedIn(): boolean {
-        const user = JSON.parse(localStorage.getItem('user'));
-        return (user !== null && user.emailVerified !== false) ? true : false;
+        if (this.authState)
+            return (this.userData !== null && this.userData.emailVerified !== false) ? true : false;
     }
 
     GoogleAuth() {
         return this.AuthLogin(new auth.GoogleAuthProvider());
     }
 
-    // Auth logic to run auth providers
     AuthLogin(provider) {
         return this.afAuth.auth.signInWithPopup(provider)
             .then((result) => {
@@ -89,33 +97,27 @@ export class AuthService {
                 })
                 this.SetUserData(result.user);
             }).catch((error) => {
-                window.alert(error)
+                this.eventAuthError.next(error);
             });
     }
 
-    /* Setting up user data when sign in with username/password, 
-    sign up with username/password and sign in with social auth  
-    provider in Firestore database using AngularFirestore + AngularFirestoreDocument service */
     SetUserData(user) {
         const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
         const userData: UserInterface = {
-            id: user.uid,
+            uid: user.uid,
             email: user.email,
-            displayName: user.displayName,
-            photoURL: user.photoURL,
+            displayName: user.displayName || this.userData.firstName + " " + this.userData.lastName,
+            photoURL: user.photoURL || "../../../assets/img/avatar.jpg",
             emailVerified: user.emailVerified
         }
-        return userRef.set(userData, {
-            merge: true
-        });
+        this.userData = userData;
+        return userRef.set(userData);
     }
 
-    // Sign out 
     SignOut() {
         return this.afAuth.auth.signOut().then(() => {
-            localStorage.removeItem('user');
+            this.authState = null;
             this.router.navigate(['log-in']);
         });
     }
-
 }

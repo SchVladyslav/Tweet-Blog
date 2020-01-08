@@ -6,23 +6,29 @@
         <h3 class="item__name">{{ post.author }}</h3>
         <p class="item__username">@{{ post.author }}</p>
         <span class="item__time">{{
-          post.date.toDate() | date: "MMM d, yyy"
-        }}</span>
+          post.date.toDate() | date: "shortTime"
+        }}</span
+        ><!-- date: "MMM d, yyy" -->
       </div>
-      <button
-        (click)="editPost(post)"
-        type="button"
-        class="item__btn item__edit"
+      <div
+        *ngIf="post.author == authService.userData.displayName"
+        class="buttons-wrap"
       >
-        Edit
-      </button>
-      <button
-        (click)="deletePost(post)"
-        type="button"
-        class="item__btn item__delete"
-      >
-        Delete
-      </button>
+        <button
+          (click)="editPost(post)"
+          type="button"
+          class="item__btn item__edit"
+        >
+          Edit
+        </button>
+        <button
+          (click)="deletePost(post)"
+          type="button"
+          class="item__btn item__delete"
+        >
+          Delete
+        </button>
+      </div>
     </div>
     <p class="item__desc">{{ post.description }}</p>
     <div *ngIf="editState && postToEdit.id == post.id">
