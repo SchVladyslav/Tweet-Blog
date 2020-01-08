@@ -6,7 +6,50 @@
     <h1 class="main__title">Sign Up</h1>
 
     <form class="main__form" action="" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="item__validation" *ngIf="authError">
+        {{ authError?.message }}
+      </div>
       <ul class="form__list">
+        <li class="form__item">
+          <input
+            #firstName
+            class="input"
+            type="text"
+            placeholder="First Name"
+            formControlName="firstName"
+            autocomplete="current-firstName"
+          />
+          <i class="icon icon-user input__icon"></i>
+          <div
+            class="item__validation"
+            *ngIf="
+              form.get('firstName').invalid && form.get('firstName').touched
+            "
+          >
+            <p *ngIf="form.get('firstName').errors.required">
+              Enter a First Name!
+            </p>
+          </div>
+        </li>
+        <li class="form__item">
+          <input
+            #lastName
+            class="input"
+            type="text"
+            placeholder="Last Name"
+            formControlName="lastName"
+            autocomplete="current-lastName"
+          />
+          <i class="icon icon-user input__icon"></i>
+          <div
+            class="item__validation"
+            *ngIf="form.get('lastName').invalid && form.get('lastName').touched"
+          >
+            <p *ngIf="form.get('lastName').errors.required">
+              Enter a Last Name!
+            </p>
+          </div>
+        </li>
         <li class="form__item">
           <input
             #userEmail
@@ -16,13 +59,13 @@
             formControlName="email"
             autocomplete="current-email"
           />
-          <i class="icon icon-lock input__icon"></i>
+          <i class="icon icon-user input__icon"></i>
           <div
             class="item__validation"
             *ngIf="form.get('email').invalid && form.get('email').touched"
           >
             <p *ngIf="form.get('email').errors.required">
-              Email isn't be empty!
+              Enter an E-mail!
             </p>
             <p *ngIf="form.get('email').errors.pattern">Enter a valid email!</p>
           </div>
@@ -36,13 +79,13 @@
             formControlName="password"
             autocomplete="current-password"
           />
-          <i class="icon icon-user input__icon"></i>
+          <i class="icon icon-lock input__icon"></i>
           <div
             class="item__validation"
             *ngIf="form.get('password').invalid && form.get('password').touched"
           >
             <p *ngIf="form.get('password').errors.required">
-              Password isn't be empty!
+              Enter a password!
             </p>
             <p *ngIf="form.get('password').errors.minlength">
               The length must be at least

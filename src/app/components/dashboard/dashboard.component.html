@@ -18,8 +18,15 @@
         alt="Photo"
       />
       <div class="message__actions-wrap">
-        <form (ngSubmit)="onSubmit()" class="message__form" method="" action="">
+        <form
+          (ngSubmit)="onSubmit()"
+          [formGroup]="form"
+          class="message__form"
+          method=""
+          action=""
+        >
           <textarea
+            formControlName="inputArea"
             rows="1"
             [(ngModel)]="post.description"
             class="message__input"
@@ -57,6 +64,7 @@
               type="submit"
               (keyup.enter)="onSubmit()"
               class="admin-main__post button__post"
+              [disabled]="form.invalid"
             >
               Post
             </button>
@@ -89,15 +97,22 @@
       X
     </button>
 
-    <div class="message">
+    <div class="modal message">
       <img
         class="user-logo"
         src="{{ authService.userData.photoURL }}"
         alt="Photo"
       />
       <div class="message__actions-wrap">
-        <form (ngSubmit)="onSubmit()" class="message__form" method="" action="">
+        <form
+          (ngSubmit)="onSubmit()"
+          [formGroup]="form"
+          class="message__form"
+          method=""
+          action=""
+        >
           <textarea
+            formControlName="inputArea"
             rows="1"
             [(ngModel)]="post.description"
             class="message__input"
@@ -135,7 +150,9 @@
             <button
               type="submit"
               (keyup.enter)="onSubmit()"
+              (click)="closeModal('post-modal')"
               class="admin-main__post button__post"
+              [disabled]="form.invalid"
             >
               Post
             </button>

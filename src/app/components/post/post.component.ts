@@ -3,6 +3,7 @@ import { Component, Input } from "@angular/core";
 import { PostInterface } from "../../interfaces/post.interface";
 
 import { PostsService } from "../../services/posts.service";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: "app-post",
@@ -14,7 +15,7 @@ export class PostComponent {
   editState: boolean = false;
   postToEdit: PostInterface;
 
-  constructor(private postsService: PostsService) { }
+  constructor(private authService: AuthService, private postsService: PostsService) { }
 
   editPost(post: PostInterface) {
     this.editState = true;

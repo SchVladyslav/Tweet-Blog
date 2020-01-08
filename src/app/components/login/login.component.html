@@ -6,6 +6,9 @@
     <h1 class="main__title">Log In</h1>
 
     <form class="main__form" action="" [formGroup]="form" (ngSubmit)="submit()">
+      <div class="item__validation" *ngIf="authError">
+        {{ authError?.message }}
+      </div>
       <ul class="form__list">
         <li class="form__item">
           <input
@@ -16,13 +19,13 @@
             formControlName="email"
             autocomplete="current-email"
           />
-          <i class="icon icon-lock input__icon"></i>
+          <i class="icon icon-user input__icon"></i>
           <div
             class="item__validation"
             *ngIf="form.get('email').invalid && form.get('email').touched"
           >
             <p *ngIf="form.get('email').errors.required">
-              Email isn't be empty!
+              Enter an E-mail!
             </p>
             <p *ngIf="form.get('email').errors.pattern">Enter a valid email!</p>
           </div>
@@ -36,13 +39,13 @@
             formControlName="password"
             autocomplete="current-password"
           />
-          <i class="icon icon-user input__icon"></i>
+          <i class="icon icon-lock input__icon"></i>
           <div
             class="item__validation"
             *ngIf="form.get('password').invalid && form.get('password').touched"
           >
             <p *ngIf="form.get('password').errors.required">
-              Password isn't be empty!
+              Enter a password!
             </p>
             <p *ngIf="form.get('password').errors.minlength">
               The length must be at least
