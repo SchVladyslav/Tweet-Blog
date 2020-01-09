@@ -15,7 +15,7 @@ export class PostComponent {
   editState: boolean = false;
   postToEdit: PostInterface;
 
-  constructor(private authService: AuthService, private postsService: PostsService) { }
+  constructor(public authService: AuthService, private postsService: PostsService) { }
 
   editPost(post: PostInterface) {
     this.editState = true;

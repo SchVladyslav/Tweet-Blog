@@ -23,13 +23,13 @@ export class DashboardComponent implements OnInit {
   posts: PostInterface[];
 
   post: PostInterface = {
-    date: new Date(),
+    date: new Date().toISOString(),
     description: '',
     author: '',
     authorImage: '',
   };
 
-  constructor(private authService: AuthService, private postsService: PostsService, private modalService: ModalService) { }
+  constructor(public authService: AuthService, private postsService: PostsService, private modalService: ModalService) { }
 
   ngOnInit() {
     this.postsService.getPosts().subscribe(posts => {
@@ -71,9 +71,6 @@ export class DashboardComponent implements OnInit {
     this.selectedFile ? this.post.image = this.selectedFile.src : this.post;
     this.post.author = this.authService.userData.displayName;
     this.post.authorImage = this.authService.userData.photoURL;
-    // console.log(this.authService.userData.displayName)
-    //this.authService.userData.displayName ? this.post.author = this.authService.userData.displayName : this.post.author = "Guest";
-    //this.authService.userData.photoURL ? this.post.authorImage = this.authService.userData.photoURL : this.post.authorImage = "../../../assets/img/avatar.jpg";
 
     this.post.comments = this.randNumbers();
     this.post.share = this.randNumbers();
