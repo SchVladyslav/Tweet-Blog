@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PostInterface } from '../../interfaces/post.interface';
+import { PostInterface } from '../../../interfaces/post.interface';
 
-import { PostsService } from '../../services/posts.service';
-import { ModalService } from '../../services/modal.service';
-import { AuthService } from '../../services/auth.service';
+import { PostsService } from '../../../services/posts.service';
+import { ModalService } from '../../../services/modal.service';
+import { AuthService } from '../../../services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 class ImageSnippet {
@@ -29,7 +29,11 @@ export class DashboardComponent implements OnInit {
     authorImage: '',
   };
 
-  constructor(public authService: AuthService, private postsService: PostsService, private modalService: ModalService) { }
+  constructor(private authService: AuthService, private postsService: PostsService, private modalService: ModalService) { }
+
+  get authServiceAccess() { // for production
+    return this.authService;
+  }
 
   ngOnInit() {
     this.postsService.getPosts().subscribe(posts => {

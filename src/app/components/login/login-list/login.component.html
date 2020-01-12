@@ -57,7 +57,10 @@
         </li>
       </ul>
       <p class="main__reset">
-        <a class="hint" (click)="authService.ForgotPassword(userEmail.value)">
+        <a
+          class="hint"
+          (click)="authServiceAccess.ForgotPassword(userEmail.value)"
+        >
           Forgot password?
         </a>
       </p>
@@ -78,7 +81,7 @@
           <button
             class="button button__login-social"
             type="button"
-            (click)="authService.GoogleAuth()"
+            (click)="authServiceAccess.GoogleAuth()"
           >
             G+
           </button>

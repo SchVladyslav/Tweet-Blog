@@ -6,7 +6,7 @@
       <button
         class="admin-main__logout"
         type="button"
-        (click)="authService.SignOut()"
+        (click)="authServiceAccess.SignOut()"
       >
         Log out
       </button>
@@ -14,7 +14,7 @@
     <section class="message">
       <img
         class="user-logo"
-        src="{{ authService.userData.photoURL }}"
+        src="{{ authServiceAccess.userData.photoURL }}"
         alt="Photo"
       />
       <div class="message__actions-wrap">
@@ -100,7 +100,7 @@
     <div class="modal message">
       <img
         class="user-logo"
-        src="{{ authService.userData.photoURL }}"
+        src="{{ authServiceAccess.userData.photoURL }}"
         alt="Photo"
       />
       <div class="message__actions-wrap">
