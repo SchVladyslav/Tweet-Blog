@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { AuthService } from '../../../services/auth.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.css']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
 })
-export class SignUpComponent implements OnInit {
+export class LogInComponent implements OnInit {
 
   form: FormGroup;
   authError: any;
@@ -19,8 +19,6 @@ export class SignUpComponent implements OnInit {
     })
 
     this.form = new FormGroup({
-      firstName: new FormControl('', [Validators.required, Validators.minLength(2)]),
-      lastName: new FormControl('', [Validators.required, Validators.minLength(2)]),
       email: new FormControl('', [Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"), Validators.required]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     });
@@ -28,6 +26,11 @@ export class SignUpComponent implements OnInit {
 
   submit() {
     const formData = this.form.value;
-    this.authService.SignUp(formData);
+    this.authService.LogIn(formData.email, formData.password);
   }
+
+  get authServiceAccess() { // for production
+    return this.authService;
+  }
+
 }

@@ -5,6 +5,7 @@ import { PostInterface } from "../../interfaces/post.interface";
 import { PostsService } from "../../services/posts.service";
 import { AuthService } from "../../services/auth.service";
 
+
 @Component({
   selector: "app-post",
   templateUrl: "./post.component.html",
@@ -15,7 +16,11 @@ export class PostComponent {
   editState: boolean = false;
   postToEdit: PostInterface;
 
-  constructor(public authService: AuthService, private postsService: PostsService) { }
+  constructor(private authService: AuthService, private postsService: PostsService) { }
+
+  get authServiceAccess() { // for production
+    return this.authService;
+  }
 
   editPost(post: PostInterface) {
     this.editState = true;

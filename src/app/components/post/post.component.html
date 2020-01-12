@@ -9,7 +9,7 @@
         ><!-- date: "MMM d, yyy" -->
       </div>
       <div
-        *ngIf="post.author == authService.userData.displayName"
+        *ngIf="post.author == authServiceAccess.userData.displayName"
         class="buttons-wrap"
       >
         <button
